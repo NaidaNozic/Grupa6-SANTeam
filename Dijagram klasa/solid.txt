@@ -1,0 +1,42 @@
+1.	Single Responsibility Principle - Princip pojedinačne odgovornosti
+      
+Ovaj princip je ispoštovan jer sve klase imaju pojedinačne
+odgovornosti, odnosno svaki posao se veže za jednu klasu.
+Ako posmatramo klasu Korisnik, možemo primijetiti da ona posjeduje samo
+one atribute koje svaki korisnik mora imati, te će klasa posjedovati
+samo one metode koje će moći vraćati i modifikovati te atribute.
+Očito je da ova klasa poznaje samo jednu stvar (korisnika) jer sadrži
+samo atribute i metode koji su usko vezani uz samog korisnika.
+Izmjena ove klase može izazvati samo potreba za promjenom Korisnika.
+
+2.	Open Closed Principle - Otvoreno zatvoren princip
+
+OCP naglašava da bi entiteti softvera (klase, moduli, funkcije) trebali
+biti otvoreni za nadogradnju, ali zatvoreni za modifikacije.
+Ovaj princip je zadovoljen jer nadogradnjom klasa ne utičemo
+na postojeće metode i atribute klasa.
+
+3.	Liskov Substitution Principle -Liskov princip zamjene
+
+Ovaj princip je zadovoljen jer sve klase koje su izvedene
+iz apstraktne klase Osoba će imati njene osobine i zaista će biti 
+zamjenjive sa posmatranom klasom. U dijagramu to su Gost, korisnik,
+zaposlenik i administrator, gdje su svi zaista osobe koje moraju imati 
+atribute i metode iz apstraktne klase sa potencijalnim 
+dodacima i modifikacijama.
+
+4.	Interface Segregation Principle -Princip izoliranja interfejsa
+
+Princip izoliranja interfejsa naglašava da korisnici ne treba da ovise o metodama 
+koje neće upotrebljavati. To smo na dijagramu klase primijenili tako što smo korisniku 
+omogućili njemu svojstvene poslove, a to su dodavanje filma, brisanje, ocjenjivanje, i slično.
+
+
+5.	Dependency Inversion Principle - Princip inverzije ovisnosti
+
+Princip inverzije ovisnosti kaže da ne treba ovisiti od konkretnih klasa. Prilikom
+nasljeđivanja u dijagramu razmotren je slučaj da je osnovna klasa apstraktna. Odnosno, klasa Osoba
+koju nasljeđuju klase Korisnik, Administrator, Gost i Zaposlenik, je apstraktna klasa.Time je
+postignuto da se apstraktna klasa mnogo manje mijenja nego njena konkretna izvedenica, čime
+je ovaj princip ispoštovan.
+
