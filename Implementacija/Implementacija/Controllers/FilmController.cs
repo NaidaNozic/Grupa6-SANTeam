@@ -7,9 +7,13 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Implementacija.Data;
 using Implementacija.Models;
+using System.Net.Http;
+using System.Net.Http.Json;
+using Microsoft.Extensions.Options;
 
 namespace Implementacija.Controllers
 {
+  
     public class FilmController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -17,6 +21,7 @@ namespace Implementacija.Controllers
         public FilmController(ApplicationDbContext context)
         {
             _context = context;
+     
         }
 
         // GET: Film
@@ -25,7 +30,7 @@ namespace Implementacija.Controllers
             return View(await _context.Film.ToListAsync());
         }
         public async Task<IActionResult> PreporuceniFilmovi()
-        {
+        {       
             return View(await _context.Film.ToListAsync());
         }
 
@@ -58,7 +63,7 @@ namespace Implementacija.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Naziv,GodinaObjave,Zanr,Trajanje,Sinopsis,Direktor,OcjenaIMDb")] Film film)
+        public async Task<IActionResult> Create([Bind("Id,Naziv,GodinaObjave,Zanr,Trajanje,Sinopsis,Direktor,OcjenaIMDb,Slika")] Film film)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +95,7 @@ namespace Implementacija.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Naziv,GodinaObjave,Zanr,Trajanje,Sinopsis,Direktor,OcjenaIMDb")] Film film)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Naziv,GodinaObjave,Zanr,Trajanje,Sinopsis,Direktor,OcjenaIMDb,Slika")] Film film)
         {
             if (id != film.Id)
             {

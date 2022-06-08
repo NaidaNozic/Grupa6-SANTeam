@@ -6,10 +6,17 @@
 
 <h1>Recommended page</h1>
 
+<style>
+    .Movie{
+        width:20%;
+        float:left;
+    }
+</style>
+
 @foreach (var item in Model)
 {
-    <div>
-        <img style="height:40px" src="https://i.ibb.co/VwS6RKC/lordof-The-Rings.jpg">
+    <div class="Movie">
+        <img style="height:300px" src="@item.Slika">
     </div>
 }
 
