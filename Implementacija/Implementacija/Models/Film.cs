@@ -14,6 +14,7 @@ namespace Implementacija.Models
         public string Sinopsis { get; set; }
         public string Direktor { get; set; }
         public double OcjenaIMDb { get; set; }
+        public string Slika { get; set; }   
 
         public Film() { }
 

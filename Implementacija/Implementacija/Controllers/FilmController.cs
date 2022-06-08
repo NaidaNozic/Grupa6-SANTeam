@@ -24,6 +24,10 @@ namespace Implementacija.Controllers
         {
             return View(await _context.Film.ToListAsync());
         }
+        public async Task<IActionResult> PreporuceniFilmovi()
+        {
+            return View(await _context.Film.ToListAsync());
+        }
 
         // GET: Film/Details/5
         public async Task<IActionResult> Details(int? id)

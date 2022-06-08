@@ -1,0 +1,15 @@
+﻿@model IEnumerable<Implementacija.Models.Film>
+
+@{
+    ViewData["Title"] = "Recommended page";
+}
+
+<h1>Recommended page</h1>
+
+@foreach (var item in Model)
+{
+    <div>
+        <img style="height:40px" src="https://i.ibb.co/VwS6RKC/lordof-The-Rings.jpg">
+    </div>
+}
+
