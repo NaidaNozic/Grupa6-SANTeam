@@ -18,6 +18,7 @@ namespace Implementacija
 {
     public class Startup
     {
+        private string _movieApiKey = null;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -28,6 +29,7 @@ namespace Implementacija
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            _movieApiKey = Configuration["TMDBApiKey"];
 
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(

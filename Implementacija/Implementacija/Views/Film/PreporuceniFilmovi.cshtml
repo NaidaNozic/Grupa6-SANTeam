@@ -4,19 +4,55 @@
     ViewData["Title"] = "Recommended page";
 }
 
-<h1>Recommended page</h1>
-
 <style>
-    .Movie{
+   
+    .Filmovi{      
+        width:80%;
+        float:right;
+        background-color:rgb(225,222,222,0.4);
+        border-left:1px solid dimgray;
+        margin-bottom:60px;
+        height:100%;
+    }
+    .Home-logo{        
         width:20%;
+        height:100%;
         float:left;
+        flex-grow : 1;
+    }
+    .Line{
+        border-right:2px solid dimgray;
+        width:3px;
+        height:100%;
     }
 </style>
 
+<div class="Home-logo">
+    <img style="height:4em;margin-left:17px" src="https://i.ibb.co/n0bPk5B/logo-movie-removebg-preview.png" /><br />
+        <img style="margin-left: 28px;margin-top:30px" src="https://i.ibb.co/2F4F0gT/icons8-home-50-1.png" alt="Home page"/><br />
+        <a style="color:dimgray;margin-left:30px;margin-top:5px;font-size:large"
+        sp-area="" asp-controller="Home" asp-action="Index">Home page</a><br /><br />
+
+        <img style="margin-left: 28px" src="https://i.ibb.co/k1TmDsc/icons8-list-50-1.png" alt="Recommended page" /><br />
+        <a style="color:black;margin-left:30px;margin-top:10px;font-size:large;font-weight:bold"
+        sp-area="" asp-controller="Film" asp-action="PreporuceniFilmovi">Recommended page</a><br /><br />
+
+        <img style="margin-left: 28px" src="https://i.ibb.co/1TmfXXY/icons8-video-playlist-50.png" /><br />
+        <a style="color:dimgray;margin-left:30px;margin-top:10px;font-size:large" 
+        sp-area="" asp-controller="Kolekcija" asp-action="Index">Collections</a>
+</div>
+<div class="Filmovi">
+    <div style="margin-bottom:20px;margin-top:10px">
+    <img style="height:18px;width:18px;float:left;margin-top:10px;margin-left:5px" src="https://i.ibb.co/kMBNygB/icons8-circle-48.png" />
+    <h3 style="color:rgb(90,90,90);margin-left:30px;width:40%;float:left">Best movies just for you!</h3>
+    <img style="height:36px;width:36px;margin-top:5px" src="https://i.ibb.co/VYvbVnm/icons8-movie-64.png"/>
+    </div>
 @foreach (var item in Model)
 {
-    <div class="Movie">
-        <img style="height:300px" src="@item.Slika">
-    </div>
+    
+        <img style="height:280px;margin-right:5px;border-radius: 30px;
+                    margin-left:10px;margin-top:8px;box-shadow: 0px 0px 10px black;" src="@item.Slika">
+   
 }
+</div>
 

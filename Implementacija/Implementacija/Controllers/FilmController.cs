@@ -10,18 +10,21 @@ using Implementacija.Models;
 using System.Net.Http;
 using System.Net.Http.Json;
 using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 
 namespace Implementacija.Controllers
 {
   
     public class FilmController : Controller
     {
+        private readonly IConfiguration _config;
         private readonly ApplicationDbContext _context;
 
-        public FilmController(ApplicationDbContext context)
+        public FilmController(ApplicationDbContext context, IConfiguration config)
         {
             _context = context;
-     
+            _config=config;
         }
 
         // GET: Film
@@ -30,8 +33,26 @@ namespace Implementacija.Controllers
             return View(await _context.Film.ToListAsync());
         }
         public async Task<IActionResult> PreporuceniFilmovi()
-        {       
-            return View(await _context.Film.ToListAsync());
+        {
+            var movieApiKey = _config["TMDBApiKey"];
+            List<Film> filmovi = new List<Film>();
+            MoviesResponse movies = new MoviesResponse();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"https://api.themoviedb.org/3/movie/popular?api_key={movieApiKey}&language=en-US&page=1"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    movies = JsonConvert.DeserializeObject<MoviesResponse>(apiResponse);
+                }
+                for (int i = 0; i < movies.results.Count; i++)
+                {
+                    Film film = new Film();
+                    film.Slika = "https://image.tmdb.org/t/p/w500/" + movies.results[i].poster_path;
+                    filmovi.Add(film);
+                }
+            }
+            return View(filmovi);
+            //return View(await _context.Film.ToListAsync());
         }
 
         // GET: Film/Details/5
