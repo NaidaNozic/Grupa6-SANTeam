@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/all.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.13.0/css/v4-shims.css">
+    <link rel="stylesheet" href="/css/index.css">
+    <title>CinePhil</title>
+
+</head>
+@model IEnumerable<ApiMovie>
+
+    <style>
+   
+    .Home-logo{        
+        width:20%;
+        height:100%;
+        float:left;
+        flex-grow : 1;
+    }
+    .Line{
+        border-right:2px solid dimgray;
+        width:3px;
+        height:100%;
+    }
+</style>
+
+<div class="Home-logo">
+    <img style="height:4em;margin-left:17px" src="https://i.ibb.co/n0bPk5B/logo-movie-removebg-preview.png" /><br />
+        <img style="margin-left: 28px;margin-top:30px" src="https://i.ibb.co/2F4F0gT/icons8-home-50-1.png" alt="Home page"/><br />
+        <a style="color:dimgray;margin-left:30px;margin-top:5px;font-size:large"
+        sp-area="" asp-controller="Home" asp-action="Index">Home page</a><br /><br />
+
+        <img style="margin-left: 28px " src="~/lib/images/list.png" alt="Recommended page" /><br />
+        <a style="color:dimgray;margin-left:30px;margin-top:10px;font-size:large;"
+        sp-area="" asp-controller="Film" asp-action="PreporuceniFilmovi">Recommended page</a><br /><br />
+
+        <img style="margin-left: 28px" src="https://i.ibb.co/1TmfXXY/icons8-video-playlist-50.png" /><br />
+        <a style="color:dimgray;margin-left:30px;margin-top:10px;font-size:large" 
+        sp-area="" asp-controller="Kolekcija" asp-action="Index">Collections</a>
+</div>
+
+
+
+<body>
+    <div class="wrapper container-fluid">
+        @{
+        <h3 style="margin-top:100px;color:black;font: 20px 'Montserrat', sans-serif;margin-left:7vw"><i class="fa fa-search" style="margin-right:10px"></i>Search Results for '@ViewBag.title'</h3>
+        }
+
+        @* popular movie listing *@
+        <div style="margin-top: 15px;" class="mainGroup d-flex flex-wrap justify-content-md-between justify-content-center">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+
+                @foreach (var r in Model)
+                {
+
+                    <div class="col-sm-6 col-md-3">
+                        <div class="card">
+                            <a href="/movie/@r.id">
+                                @if(@r.poster_path == null)
+                                {
+                                    <img src="https://image.tmdb.org/t/p/w500/zYPsleQJo1n1rBPlecJBRb3iwSO.jpg" class="card-img-top" alt="@r.title">
+                                }
+                                else
+                                {
+                                <img src="https://image.tmdb.org/t/p/w500/@r.poster_path" class="card-img-top" alt="@r.title">
+                                }
+                            </a>
+
+                            <div class="cardBody card-body">
+                                <div style="display:flex;justify-content:space-between">
+
+                                    <div class="title mb-1 mr-4 card-title">@r.title</div>
+                                  
+                                    
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                }
+
+            </div>
+
+
+        </div>
+
+    </div>
+</body>
+
+</html>

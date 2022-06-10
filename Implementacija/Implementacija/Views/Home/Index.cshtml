@@ -46,7 +46,13 @@
 
     <div class="Text">
         <h1 style="font-size:5vw">Welcome!</h1><br />
-        <input style="width:300px" type="text" placeholder="Search..">
+        @{
+
+                    <form action="/search/{@ViewBag.title}" class="d-flex" method="post">
+        <input name="searchTitle" class="form-control me-2" type="search" placeholder="Search by movie title" style="width: 230px;margin-left:260px">
+         @* <button class="btn btn-outline-success" type="submit">Search</button> *@
+                    </form> 
+                    }
     </div>
  
 

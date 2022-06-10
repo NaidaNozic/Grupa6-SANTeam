@@ -179,5 +179,29 @@ namespace Implementacija.Controllers
         {
             return _context.Film.Any(e => e.Id == id);
         }
+
+        [HttpPost("search/{searchTitle}")]
+        public async Task<IActionResult> SearchMovie(string searchTitle)
+        {
+            var movieApiKey = _config["TMDBApiKey"];
+
+            MoviesResponse movieList = new MoviesResponse();
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"https://api.themoviedb.org/3/search/movie?api_key={movieApiKey}&query={searchTitle}"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+                    movieList = JsonConvert.DeserializeObject<MoviesResponse>(apiResponse);
+                    var searchResult = movieList.results;
+                    ViewBag.result = searchResult.All(movie => movie.title == searchTitle);
+
+                    ViewBag.title = searchTitle;
+                    // Console.WriteLine(apiResponse);   
+                    ViewBag.searchPage = true;
+
+                }
+            }
+            return View("SearchResult", movieList.results);
+        }
     }
 }
