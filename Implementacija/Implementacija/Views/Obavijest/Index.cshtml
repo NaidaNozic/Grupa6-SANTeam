@@ -2,12 +2,33 @@
 
 @{
     ViewData["Title"] = "Notifications";
+
 }
 
-<h1>Obavještenja</h1>
+<style>
+      img{
+           height:4em;
+           margin-bottom:2%;
+           margin-left:6%;
+           margin-right:1%;
+          
+      }
+
+      p{
+          padding-top: 30px
+         }
+</style>
+
+
+
+ 
+<div class="text-center">
+       <img src="~/lib/images/notifications.png" ><font size="+4">Obavještenja</font> 
+      
+    </div>
 
 <p>
-    <a asp-action="Create">Notifikacije</a>
+    <a asp-action="Create" style="color:red">Notifikacije</a>
 </p>
 <table class="table">
     <thead>
