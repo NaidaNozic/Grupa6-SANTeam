@@ -1,7 +1,10 @@
-﻿namespace Implementacija.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Implementacija.Models
 {
     public enum VrstaObavijesti
     {
-        KomentarObavijest, FilmObavijest
+        [Display(Name = "Komentar obavijest")] KomentarObavijest,
+        [Display(Name = "Film obavijest")] FilmObavijest
     }
 }
