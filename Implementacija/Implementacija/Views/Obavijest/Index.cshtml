@@ -6,57 +6,58 @@
 }
 
 <style>
-      img{
-           height:4em;
-           margin-bottom:2%;
-           margin-left:6%;
-           margin-right:1%;
-          
-      }
+    body {
+        background-image: url('https://i.ibb.co/dGmJRcn/Pocetna-Stranica.png');
+        width: 100%;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
 
-      p{
-          padding-top: 30px
-         }
+    div.transbox {
+        margin: 30px;
+        background-color: #ffffff;
+        border: 1px solid black;
+        opacity: 0.6;
+    }
+
+    .switch {
+        position: relative;
+        display: inline-block;
+        width: 60px;
+        height: 20px;
+    }
 </style>
 
 
 
- 
-<div class="text-center">
-       <img src="~/lib/images/notifications.png" ><font size="+4">Obavještenja</font> 
-      
-    </div>
 
-<p>
-    <a asp-action="Create" style="color:red">Notifikacije</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Tekst)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Vrsta)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Tekst)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Vrsta)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="container">
+    <div class="transbox">
+        <div class="col-md-11 p-lg-4 mx-auto my-4">
+            <h1 class="display-4 font-weight-normal">
+                <img style="max-width:65px; height:45px; margin-top: -7px;"
+                     src="~/lib/images/notifications.png"><b>Notifications</b>
+            </h1> <br />
+            <p class="lead font-weight-normal"></p>
+            <br />
+
+            <p class="lead font-weight-bold">
+                Comments <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            <p class="lead font-weight-light">Let me know if anyone responds to the comment</p>
+            <br />
+
+
+            <p class="lead font-weight-bold">Update app <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                </label>
+            <p class="lead font-weight-light">Notify me via email about changes to the app</p>
+            <br />
+
+
+        </div>
+    </div>
+</div>
