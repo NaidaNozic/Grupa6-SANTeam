@@ -7,7 +7,7 @@ using System.Text;
 
 namespace Implementacija.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
@@ -33,6 +33,7 @@ namespace Implementacija.Data
         public DbSet<ObavijestVeza> ObavijestVeza { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
             modelBuilder.Entity<Osoba>().ToTable("Osoba");
             modelBuilder.Entity<Korisnik>().ToTable("Korisnik");
             modelBuilder.Entity<Administrator>().ToTable("Administrator");

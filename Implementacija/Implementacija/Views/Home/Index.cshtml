@@ -1,6 +1,9 @@
-﻿@{
+﻿@using Microsoft.AspNetCore.Identity
+
+@{
     ViewData["Title"] = "Home Page";
 }
+@inject UserManager<ApplicationUser> UserManager
 
 <style>
     body {
@@ -56,7 +59,8 @@
     </div>
 
     <div class="Text">
-        <h1 style="font-size:5vw">Welcome!</h1><br />
+        <h1 style="font-size:5vw">Welcome!</h1>
+        <h2>@UserManager.GetUserAsync(User).Result?.KorisnickoIme</h2>
         @{
 
                     <form action="/search/{@ViewBag.title}" class="d-flex" method="post">
