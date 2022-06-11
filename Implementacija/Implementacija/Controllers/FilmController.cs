@@ -48,7 +48,7 @@ namespace Implementacija.Controllers
                 }
             }
             ViewBag.recommended = true;
-
+            ViewBag.recommendedPage = 1;
             return View("Recommended", movieList.results);
         }
 
