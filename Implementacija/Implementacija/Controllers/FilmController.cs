@@ -15,7 +15,7 @@ using Newtonsoft.Json;
 
 namespace Implementacija.Controllers
 {
-  
+
     public class FilmController : Controller
     {
         private readonly IConfiguration _config;
@@ -24,7 +24,7 @@ namespace Implementacija.Controllers
         public FilmController(ApplicationDbContext context, IConfiguration config)
         {
             _context = context;
-            _config=config;
+            _config = config;
         }
 
         // GET: Film
@@ -203,5 +203,38 @@ namespace Implementacija.Controllers
             }
             return View("SearchResult", movieList.results);
         }
+
+        [HttpGet("/movie/{movieId}")]
+        public async Task<IActionResult> DetailPage(int movieId)
+        {
+
+            var movieApiKey = _config["TMDBApiKey"];
+            using (var httpClient = new HttpClient())
+            {
+                using (var response = await httpClient.GetAsync($"https://api.themoviedb.org/3/movie/{movieId}?api_key={movieApiKey}&language=en-US"))
+                {
+                    string apiResponse = await response.Content.ReadAsStringAsync();
+
+                    ViewBag.ThisMovie = JsonConvert.DeserializeObject(apiResponse);
+                    ViewBag.id = movieId;
+                    ViewBag.title = ViewBag.ThisMovie.title;
+                    ViewBag.overview = ViewBag.ThisMovie.overview;
+                    ViewBag.runtimeHour = ViewBag.ThisMovie.runtime / 60;
+                    ViewBag.runtimeMinute = (int)ViewBag.ThisMovie.runtime % 60;
+                    ViewBag.vote_average = ViewBag.ThisMovie.vote_average;
+                    ViewBag.release_date = ViewBag.ThisMovie.release_date;
+                    ViewBag.poster_path = ViewBag.ThisMovie.poster_path;
+                    ViewBag.backdrop_path = ViewBag.ThisMovie.backdrop_path;
+                    if (ViewBag.ThisMovie.genres != null)
+                    {
+                        ViewBag.genre = ViewBag.ThisMovie.genres;
+                    }
+
+                }
+            }
+
+            return View();
+        }
+
     }
 }
