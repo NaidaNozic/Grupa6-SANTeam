@@ -12,9 +12,14 @@
     <title>CinePhil</title>
 
 </head>
-@model IEnumerable<ApiMovie>
-
-    <style>
+@*@model IEnumerable<Result> *@
+@{
+    int[] pages = new int[]
+    {
+        1,2,3,4,5,6,7,8,9,10
+    };
+}
+<style>
    
     .Home-logo{        
         width:20%;
@@ -44,16 +49,32 @@
         sp-area="" asp-controller="Kolekcija" asp-action="Index">Collections</a>
 </div>
 
-
-
 <body>
     <div class="wrapper container-fluid">
-        @{
-        <h3 style="margin-top:100px;color:black;font: 20px 'Montserrat', sans-serif;margin-left:7vw"><i class="fa fa-search" style="margin-right:10px"></i>Search Results for '@ViewBag.title'</h3>
-        }
+       
+        @* <div class="buttonRow"> *@
 
-        @* popular movie listing *@
-        <div style="margin-top: 15px;" class="mainGroup d-flex flex-wrap justify-content-md-between justify-content-center">
+            
+            </div>
+
+            <div style="width:fit-content;float:right;margin-top:5px;margin-right:5px; margin-bottom:50px" class="navigation">
+     @if (ViewBag.recommendedPage != null && ViewBag.recommendedPage != 0)
+        { 
+             <ul class="pagination justify-content-end">
+            @if(ViewBag.recommendedPage>1){
+                 <li class="page-item @("")">
+                   <a class="page-link" href="/movie/popular/@(ViewBag.recommendedPage-1)">Previous</a>
+                  </li>
+              }
+          
+                <li class="page-item @("")">
+            <a class="page-link" href="/movie/popular/@(ViewBag.recommendedPage+1)">Next</a>
+               </li>
+              </ul>
+         }
+    </div>
+
+        <div class="mainGroup d-flex flex-wrap justify-content-md-between justify-content-center">
             <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
 
                 @foreach (var r in Model)
@@ -62,34 +83,53 @@
                     <div class="col-sm-6 col-md-3">
                         <div class="card">
                             <a href="/movie/@r.id">
-                                @if(@r.poster_path == null)
-                                {
-                                    <img src="https://image.tmdb.org/t/p/w500/zYPsleQJo1n1rBPlecJBRb3iwSO.jpg" class="card-img-top" alt="@r.title">
-                                }
-                                else
-                                {
-                                <img src="https://image.tmdb.org/t/p/w500/@r.poster_path" class="card-img-top" alt="@r.title">
-                                }
+                                    @if(@r.poster_path == null)
+                                    {
+                                        <img src="https://image.tmdb.org/t/p/w500/zYPsleQJo1n1rBPlecJBRb3iwSO.jpg" class="card-img-top" alt="@r.title">
+                                    }
+                                    else
+                                    {
+                                    <img src="https://image.tmdb.org/t/p/w500/@r.poster_path" class="card-img-top" alt="@r.title">
+                                    }
                             </a>
-
+                            
                             <div class="cardBody card-body">
                                 <div style="display:flex;justify-content:space-between">
 
                                     <div class="title mb-1 mr-4 card-title">@r.title</div>
-                                  
                                     
                                 </div>
+
                             </div>
 
                         </div>
                     </div>
+                    
                 }
+
+
 
             </div>
 
 
         </div>
-
+        
+        <div style="width:fit-content;float:right;margin-top:5px;margin-right:5px; margin-bottom:50px" class="navigation">
+     @if (ViewBag.recommendedPage != null && ViewBag.recommendedPage != 0)
+        { 
+             <ul class="pagination justify-content-end">
+            @if(ViewBag.recommendedPage>1){
+                 <li class="page-item @("")">
+                   <a class="page-link" href="/movie/popular/@(ViewBag.recommendedPage-1)">Previous</a>
+                  </li>
+              }
+          
+                <li class="page-item @("")">
+            <a class="page-link" href="/movie/popular/@(ViewBag.recommendedPage+1)">Next</a>
+               </li>
+              </ul>
+         }
+    </div>
     </div>
 </body>
 

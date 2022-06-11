@@ -32,58 +32,44 @@ namespace Implementacija.Controllers
         {
             return View(await _context.Film.ToListAsync());
         }
-        [HttpGet]
-        public async Task<IActionResult> PreporuceniFilmovi()
+        [HttpGet("/movie/popular")]
+        public async Task<IActionResult> Recommended()
         {
             var movieApiKey = _config["TMDBApiKey"];
-            List<Film> filmovi = new List<Film>();
-            MoviesResponse movies = new MoviesResponse();
 
+
+            MoviesResponse movieList = new MoviesResponse();
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"https://api.themoviedb.org/3/movie/popular?api_key={movieApiKey}&language=en-US@page=1"))
+                using (var response = await httpClient.GetAsync($"https://api.themoviedb.org/3/movie/popular?language=en-US&api_key={movieApiKey}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    movies = JsonConvert.DeserializeObject<MoviesResponse>(apiResponse);
-                }
-
-                for (int i = 0; i < movies.results.Count; i++)
-                {
-                    Film film = new Film();
-                    film.Slika = "https://image.tmdb.org/t/p/w500/" + movies.results[i].poster_path;
-                    filmovi.Add(film);
+                    movieList = JsonConvert.DeserializeObject<MoviesResponse>(apiResponse);
                 }
             }
-            ViewBag.currentPage = 1;
-            return View(filmovi);
+            ViewBag.recommended = true;
+
+            return View("Recommended", movieList.results);
         }
 
-        [HttpGet("popular/{pageNum}")]
-        public async Task<IActionResult> PreporuceniFilmovi(int pageNum = 1)
+        [HttpGet("/movie/popular/{pageNum}")]
+        public async Task<IActionResult> RecommendedPages(int pageNum)
         {
             var movieApiKey = _config["TMDBApiKey"];
-            List<Film> filmovi = new List<Film>();
-            MoviesResponse movies = new MoviesResponse();
-
+            MoviesResponse movieList = new MoviesResponse();
 
             using (var httpClient = new HttpClient())
             {
-                using (var response = await httpClient.GetAsync($"https://api.themoviedb.org/3/movie/popular?api_key={movieApiKey}&language=en-US&page={pageNum}"))
+                using (var response = await httpClient.GetAsync($"https://api.themoviedb.org/3/movie/popular?language=en-US&api_key={movieApiKey}&page={pageNum}"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
-                    movies = JsonConvert.DeserializeObject<MoviesResponse>(apiResponse);
-                }
-
-                for (int i = 0; i < movies.results.Count; i++)
-                {
-                    Film film = new Film();
-                    film.Slika = "https://image.tmdb.org/t/p/w500/" + movies.results[i].poster_path;
-                    filmovi.Add(film);
+                    movieList = JsonConvert.DeserializeObject<MoviesResponse>(apiResponse);
                 }
             }
-            ViewBag.currentPage = pageNum;
+            ViewBag.recommended = true;
+            ViewBag.recommendedPage = pageNum;
 
-            return View(filmovi);
+            return View("Recommended", movieList.results);
         }
 
         // GET: Film/Details/5
