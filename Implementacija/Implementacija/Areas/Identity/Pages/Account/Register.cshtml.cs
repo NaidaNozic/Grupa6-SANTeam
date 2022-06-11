@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
+using Implementacija.Data;
 using Implementacija.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -24,17 +25,20 @@ namespace Implementacija.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+        private readonly ApplicationDbContext _context;
 
         public RegisterModel(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
-            IEmailSender emailSender)
+            IEmailSender emailSender,
+            ApplicationDbContext context)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
+            _context= context;
         }
 
         [BindProperty]
@@ -82,9 +86,23 @@ namespace Implementacija.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = Input.Email, Email = Input.Email,Ime=Input.Ime,Prezime=Input.Prezime,
-                                                 KorisnickoIme=Input.KorisnickoIme};        
+                                                 KorisnickoIme=Input.KorisnickoIme};
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
+                if (ModelState.IsValid)
+                {
+                    var osoba = new Osoba
+                    {
+                        Ime = Input.Ime,
+                        Prezime = Input.Prezime,
+                        Email = Input.Email,
+                        KorisnickoIme = Input.KorisnickoIme,
+                        Password = Input.Password,
+                        UserId = user.Id
+                    };
+                    _context.Add(osoba);
+                    await _context.SaveChangesAsync();
+                }
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
