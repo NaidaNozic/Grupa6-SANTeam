@@ -1,4 +1,5 @@
 ﻿using Implementacija.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,8 +19,10 @@ namespace Implementacija.Controllers
             _logger = logger;
         }
 
+        //[Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
+            if (User.IsInRole("Admin")) { return RedirectToAction("Index", "Admin"); }
             return View();
         }
 

@@ -7,27 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Implementacija.Data;
 using Implementacija.Models;
-using Microsoft.AspNetCore.Authorization;
 
 namespace Implementacija.Controllers
 {
-    [Authorize]
-    public class KolekcijaController : Controller
+    public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public KolekcijaController(ApplicationDbContext context)
+        public AdminController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Kolekcija
+        // GET: Admin
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Kolekcija.ToListAsync());
+            return View(await _context.Administrator.ToListAsync());
         }
 
-        // GET: Kolekcija/Details/5
+        // GET: Admin/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -35,39 +33,39 @@ namespace Implementacija.Controllers
                 return NotFound();
             }
 
-            var kolekcija = await _context.Kolekcija
+            var administrator = await _context.Administrator
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (kolekcija == null)
+            if (administrator == null)
             {
                 return NotFound();
             }
 
-            return View(kolekcija);
+            return View(administrator);
         }
 
-        // GET: Kolekcija/Create
+        // GET: Admin/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Kolekcija/Create
+        // POST: Admin/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Naziv")] Kolekcija kolekcija)
+        public async Task<IActionResult> Create([Bind("Id")] Administrator administrator)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(kolekcija);
+                _context.Add(administrator);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(kolekcija);
+            return View(administrator);
         }
 
-        // GET: Kolekcija/Edit/5
+        // GET: Admin/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -75,22 +73,22 @@ namespace Implementacija.Controllers
                 return NotFound();
             }
 
-            var kolekcija = await _context.Kolekcija.FindAsync(id);
-            if (kolekcija == null)
+            var administrator = await _context.Administrator.FindAsync(id);
+            if (administrator == null)
             {
                 return NotFound();
             }
-            return View(kolekcija);
+            return View(administrator);
         }
 
-        // POST: Kolekcija/Edit/5
+        // POST: Admin/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Naziv")] Kolekcija kolekcija)
+        public async Task<IActionResult> Edit(int id, [Bind("Id")] Administrator administrator)
         {
-            if (id != kolekcija.Id)
+            if (id != administrator.Id)
             {
                 return NotFound();
             }
@@ -99,12 +97,12 @@ namespace Implementacija.Controllers
             {
                 try
                 {
-                    _context.Update(kolekcija);
+                    _context.Update(administrator);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!KolekcijaExists(kolekcija.Id))
+                    if (!AdministratorExists(administrator.Id))
                     {
                         return NotFound();
                     }
@@ -115,10 +113,10 @@ namespace Implementacija.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(kolekcija);
+            return View(administrator);
         }
 
-        // GET: Kolekcija/Delete/5
+        // GET: Admin/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -126,30 +124,30 @@ namespace Implementacija.Controllers
                 return NotFound();
             }
 
-            var kolekcija = await _context.Kolekcija
+            var administrator = await _context.Administrator
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (kolekcija == null)
+            if (administrator == null)
             {
                 return NotFound();
             }
 
-            return View(kolekcija);
+            return View(administrator);
         }
 
-        // POST: Kolekcija/Delete/5
+        // POST: Admin/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var kolekcija = await _context.Kolekcija.FindAsync(id);
-            _context.Kolekcija.Remove(kolekcija);
+            var administrator = await _context.Administrator.FindAsync(id);
+            _context.Administrator.Remove(administrator);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool KolekcijaExists(int id)
+        private bool AdministratorExists(int id)
         {
-            return _context.Kolekcija.Any(e => e.Id == id);
+            return _context.Administrator.Any(e => e.Id == id);
         }
     }
 }
