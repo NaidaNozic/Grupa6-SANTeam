@@ -248,7 +248,27 @@ namespace Implementacija.Controllers
                     }
 
                 }
+            
+            using (var r = await httpClient.GetAsync($"https://api.themoviedb.org/3/movie/{movieId}/credits?api_key={movieApiKey}&language=en-US"))
+            {
+                string apiR = await r.Content.ReadAsStringAsync();
+
+                ViewBag.Filmic = JsonConvert.DeserializeObject(apiR);
+                ViewBag.id = movieId;
+
+
+                if (ViewBag.Filmic.cast != null)
+                {
+
+                    ViewBag.cast = ViewBag.Filmic.cast;
+
+                }
+
+
+
+
             }
+        }
 
             return View();
         }
