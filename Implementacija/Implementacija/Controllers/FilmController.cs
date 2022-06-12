@@ -26,6 +26,21 @@ namespace Implementacija.Controllers
             _context = context;
             _config = config;
         }
+        //GET filmove kolekcije
+        [HttpGet("/filmovi/{collectionId}")]
+        public IActionResult CollectionMovies(int collectionId)
+        {
+            //i need all FilmVeza items
+            List<FilmVeza> filmVeze = _context.FilmVeza.ToList().FindAll(f => f.KolekcijaId == collectionId);
+            //gather all the movies from the list above
+            List<Film> collectionMovies = new List<Film>();
+            foreach (var f in filmVeze)
+            {
+                //_context.Film.ToList().Find(f1 => f1.Id==f.FilmId);
+                collectionMovies.Add(_context.Film.ToList().Find(f1 => f1.Id == f.FilmId));
+            }
+            return View(collectionMovies);
+        }
 
         // GET: Film
         public async Task<IActionResult> Index()

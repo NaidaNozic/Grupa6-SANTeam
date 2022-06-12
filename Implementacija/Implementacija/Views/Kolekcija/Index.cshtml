@@ -60,14 +60,19 @@
 
 @foreach (var item in Model) {
         <ul>
+            
             <li style="font-size:30px">
-                @Html.DisplayFor(modelItem => item.Naziv)
+               <a href="/filmovi/@item.Id"> @Html.DisplayFor(modelItem => item.Naziv) </a>
+
                 <a asp-action="Edit" asp-route-id="@item.Id"
-                style="float:right;margin-right:5px;color:rgb(222, 222 222);font-size:20px">Edit</a>   
+                style="float:right;margin-right:5px;color:rgb(222, 222 222);font-size:20px">Edit</a>  
+                
                 <p style="float:right;margin-right:10px;font-size:20px"> | </p>
+
                 <a asp-action="Delete" asp-route-id="@item.Id" 
                 style="float:right;margin-right:12px;color:rgb(143, 0, 0);font-size:20px">Delete</a>
             </li>
+       
         </ul>
 }
 </div>
