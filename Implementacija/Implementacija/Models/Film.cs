@@ -22,7 +22,7 @@ namespace Implementacija.Models
         public double OcjenaIMDb { get; set; }
         [JsonPropertyName("poster_path")]
         public string Slika { get; set; }   
-        public string tmbd_id { get; set; }
+        public int tmbd_id { get; set; }
 
         public Film() { }
 

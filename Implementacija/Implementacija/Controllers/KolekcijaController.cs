@@ -200,6 +200,7 @@ namespace Implementacija.Controllers
                     film.OcjenaIMDb = ThisMovie.vote_average;
                     film.GodinaObjave = int.Parse(ThisMovie.release_date.Split('-')[0]);
                     film.Slika = ThisMovie.poster_path;
+                    film.tmbd_id = ThisMovie.id;
                     if (ThisMovie.genres != null)
                     {
                         foreach (var zanr in ThisMovie.genres)
@@ -208,7 +209,8 @@ namespace Implementacija.Controllers
                             else film.Zanr = film.Zanr +"-"+ zanr.name;
                         }
                     }
-                    if(_context.Film.ToList().Find(f =>f.Naziv==film.Naziv && f.Slika==film.Slika)==null)
+                    if((_context.Film!=null && _context.Film.ToList() != null && _context.Film.ToList().Find(f =>f.Naziv==film.Naziv && f.Slika==film.Slika)==null) ||
+                        _context.Film==null)
                     if (ModelState.IsValid)
                     {
                         _context.Add(film);
