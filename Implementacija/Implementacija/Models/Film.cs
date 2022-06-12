@@ -23,7 +23,6 @@ namespace Implementacija.Models
         [JsonPropertyName("poster_path")]
         public string Slika { get; set; }   
         public int tmbd_id { get; set; }
-
         public Film() { }
 
     }
