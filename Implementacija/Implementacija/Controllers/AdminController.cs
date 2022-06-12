@@ -23,6 +23,11 @@ namespace Implementacija.Controllers
         {
             return View("UserAccounts", await _context.Osoba.ToListAsync());
         }
+        //GET Movies from database
+        public async Task<IActionResult> MoviesFromDatabase()
+        {
+            return View("MoviesFromDatabase", await _context.Film.ToListAsync());
+        }
 
         // GET: Admin
         public async Task<IActionResult> Index()

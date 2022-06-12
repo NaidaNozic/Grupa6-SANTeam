@@ -1,0 +1,102 @@
+﻿@model IEnumerable<Implementacija.Models.Film>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    body {
+        color: snow;
+        background-image: url("https://i.ibb.co/dGmJRcn/Pocetna-Stranica.png");
+        height: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    .Home-logo {
+        margin-left: 20px;
+        margin-top: 20px;
+        float:left;
+    }
+    .Text{
+        width:67%;     
+        height:50%;
+        float:left;
+        margin-top:20%;
+        text-align:center;
+    }
+    .User{
+        width:75%;
+        margin-bottom:5%;
+        margin-top:8%;
+        float:right;
+        margin-right:10%
+    }
+ 
+
+</style>
+
+
+<div class="Home-logo">
+       <a sp-area="" asp-controller="Admin" asp-action="Index">
+        <img style="height:6em" src="https://i.ibb.co/n0bPk5B/logo-movie-removebg-preview.png" /><br />
+        </a>
+        <div style="height:30px">
+            <a sp-area="" asp-controller="Admin" asp-action="Index">
+            <img style="margin-left: 28px;margin-top:30px;margin-bottom:5px;height:50px" src="https://i.ibb.co/7pZzW4m/icons8-home-50.png" alt="Home page"/><br />
+            </a>
+            <a style="color:white;margin-left:30px;font-size:large"
+             sp-area="" asp-controller="Admin" asp-action="Index">Home page</a>
+        </div><br /><br /><br />
+</div>
+
+<div class="User">
+    <center>
+        <p style="color:white;margin-left:10px;font-size:30px;margin-top:10px;font-weight:bold"
+                 >Download requests</p>
+    </center>
+</div>
+
+<!--Filmovi-->
+<div style="height:210px"></div>
+<div style="margin-left:170px;height:fit-content" class="SviZahtjevi">
+
+@foreach(var film in Model){
+
+        <div style="margin-bottom:30px;background-color: rgb(202, 202, 202,0.8);height:320px" class="ZahtjeviZaPreuzimanje">
+             <div style="height:1px"></div>
+             <div style="width:fit-content;float:left;margin-left:15px;margin-top:10px;margin-bottom:8px" class="SlikaFilma">
+                 <img style="height:18em" src="https://image.tmdb.org/t/p/w500/@film.Slika">
+             </div>
+
+             <div style="width:695px;float:left;color:black;margin-top:20px;font-size:22px;margin-left:10px" 
+                  class="Naslov">@film.Naziv</div>
+
+             <p style="color:black;float:left;width:600px;height:30px;margin-top:10px;margin-right:90px;margin-left:10px" 
+                  class="GodinaIZanrovi">
+                 @("("+@film.GodinaObjave+") "+@film.Zanr+" - "+@film.Trajanje+"h")
+             </p> 
+
+             <p style="color:black;margin-left:10px;width:fit-content;height:20px;float:left" class="OcjenaIMDB">
+                @("IMDB ocjena: "+ @film.OcjenaIMDb+"/10")
+             </p>
+
+             <a asp-controller="Film" asp-action="Delete" asp-route-id="@film.Id">
+             <div style="margin-top:130px;float:right;margin-right:40px;margin-bottom:30px" class="garbage">
+                 <a asp-controller="Film" asp-action="Delete" asp-route-id="@film.Id" 
+                    style="color:red;font-size:20px;margin-right:5px">Delete</a>
+                 <img style="height:3em;float:right" src="~/lib/images/garbage-dark.png">
+             </div>
+             </a>
+ 
+        </div>
+
+
+}
+                
+</div>
+ 
+
+

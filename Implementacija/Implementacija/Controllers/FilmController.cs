@@ -204,7 +204,7 @@ namespace Implementacija.Controllers
             var film = await _context.Film.FindAsync(id);
             _context.Film.Remove(film);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index","Home");
         }
 
         private bool FilmExists(int id)
