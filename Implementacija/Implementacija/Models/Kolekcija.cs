@@ -9,7 +9,6 @@ namespace Implementacija.Models
         [Key]
         public int Id { get; set; }
         public string Naziv { get; set; }
-        [ForeignKey("Korisnik")]
         public int KorisnikId { get; set; }
         public Korisnik korisnik { get; set; }  
         public Kolekcija() { }

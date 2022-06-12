@@ -18,6 +18,11 @@ namespace Implementacija.Controllers
         {
             _context = context;
         }
+        //GET User accounts
+        public async Task<IActionResult> UserAccounts()
+        {
+            return View("UserAccounts", await _context.Osoba.ToListAsync());
+        }
 
         // GET: Admin
         public async Task<IActionResult> Index()

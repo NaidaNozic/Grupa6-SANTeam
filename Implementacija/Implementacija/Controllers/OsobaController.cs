@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Implementacija.Data;
 using Implementacija.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Implementacija.Controllers
 {
     public class OsobaController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private UserManager<ApplicationUser> _userManager;
 
-        public OsobaController(ApplicationDbContext context)
+        public OsobaController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Osoba
@@ -124,13 +127,11 @@ namespace Implementacija.Controllers
                 return NotFound();
             }
 
-            var osoba = await _context.Osoba
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var osoba = await _context.Osoba.FirstOrDefaultAsync(m => m.Id == id);
             if (osoba == null)
             {
                 return NotFound();
             }
-
             return View(osoba);
         }
 
@@ -140,9 +141,19 @@ namespace Implementacija.Controllers
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var osoba = await _context.Osoba.FindAsync(id);
-            _context.Osoba.Remove(osoba);
+            string idOsobe = osoba.UserId;
+            _context.Osoba.Remove(osoba);         
+
+            var korisnik=_context.Korisnik.ToList().Find(k => k.osobaId==id);
+            _context.Korisnik.Remove(korisnik);
+
+            var user = await _userManager.FindByIdAsync(idOsobe);
+            if(user != null)
+            {
+                await _userManager.DeleteAsync(user);
+            }
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("UserAccounts", "Admin");
         }
 
         private bool OsobaExists(int id)

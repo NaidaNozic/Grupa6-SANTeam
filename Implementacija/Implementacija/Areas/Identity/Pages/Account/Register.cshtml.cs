@@ -100,8 +100,8 @@ namespace Implementacija.Areas.Identity.Pages.Account
                         Password = Input.Password,
                         UserId = user.Id
                     };
-                    _context.Add(osoba);
-                    await _context.SaveChangesAsync();
+                    //_context.Add(osoba);
+                    //await _context.SaveChangesAsync();
                     //kreirati objekat tipa korisnik
                     var korisnik = new Korisnik
                     {                       

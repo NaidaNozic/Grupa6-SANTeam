@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Implementacija.Models.Osoba>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<style>
+    body {
+        color: snow;
+        background-image: url("https://i.ibb.co/dGmJRcn/Pocetna-Stranica.png");
+        height: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+
+    .Home-logo {
+        margin-left: 20px;
+        margin-top: 20px;
+        float:left;
+    }
+    .Text{
+        width:67%;     
+        height:50%;
+        float:left;
+        margin-top:20%;
+        text-align:center;
+    }
+    .User{
+        width:75%;
+        margin-bottom:5%;
+        margin-top:8%;
+        float:right;
+        margin-right:10%
+    }
+    .UvidUKorisnike{
+        height:228px;
+        width:25%;
+        background-color: rgb(0, 0, 0,0.7);
+        border:2px solid gray;
+        float:left;
+        margin-right:30px;
+    }
+
+</style>
+
+
+<div class="Home-logo">
+        <img style="height:6em" src="https://i.ibb.co/n0bPk5B/logo-movie-removebg-preview.png" /><br />
+        <div style="height:30px">
+            <img style="margin-left: 28px;margin-top:30px;margin-bottom:5px;height:50px" src="https://i.ibb.co/7pZzW4m/icons8-home-50.png" alt="Home page"/><br />
+            <a style="color:white;margin-left:30px;font-size:large"
+             sp-area="" asp-controller="Admin" asp-action="Index">Home page</a>
+        </div><br /><br /><br />
+</div>
+
+<div class="User">
+    <center>
+        <p style="color:white;margin-left:10px;font-size:30px;margin-top:10px;font-weight:bold">Insight to user accounts</p>
+    </center>
+</div>
+
+<!--Odabir akcija za admina-->
+<div style="margin-left:170px">
+
+    @foreach(var korisnik in Model){
+
+<div class="UvidUKorisnike">
+    <div>
+        <center>
+            <img style="height:4em;margin-top:5px;margin-right:10px"
+                     src="https://i.ibb.co/LJL3JLg/icons8-customer-skin-type-7-48.png" alt="User image" />
+           
+            <div class="ImeIPrezime">
+                <p>@(@korisnik.Ime+" "+@korisnik.Prezime)</p>
+            </div>
+        </center>
+
+        <div style="margin-left:10px;margin-bottom:15px" class="Email-Adresa-Korisnika">
+            <u style="font-size:17px">Email adresa</u>
+            <p style="margin-top:-2px">@korisnik.Email</p>
+        </div>
+
+        <div class="Garbage-icon">
+            <a asp-controller="Osoba" asp-action="Delete" asp-route-id="@korisnik.Id" 
+               style="float:right;color:yellow">
+               <img style="height:2em;margin-right:12px;float:right;margin-left:3px" 
+                    src="~/lib/images/garbage.png">Delete
+            </a>
+        </div>
+       
+    </div>
+</div>
+    }
+
+</div>
+
+ 
+
+
