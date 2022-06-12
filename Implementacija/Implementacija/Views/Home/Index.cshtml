@@ -58,6 +58,8 @@
  }
     </div>
 
+@if (User.Identity.IsAuthenticated)
+{
     <div class="Text">
         <h1 style="font-size:5vw">Welcome!</h1>
         <h2>@UserManager.GetUserAsync(User).Result?.KorisnickoIme</h2>
@@ -69,6 +71,21 @@
                     </form> 
                     }
     </div>
+}
+else{
+    <div class="Text">
+        <h1 style="font-size:5vw">My Movie Library!</h1>
+        <p class="lead font-weight-normal" style="color:white">Are you a movie lover?<br /> Join us as soon as possible!</p>
+        @{
+
+                    <form action="/search/{@ViewBag.title}" class="d-flex" method="post">
+        <input name="searchTitle" class="form-control me-2" type="search" placeholder="Search by movie title" style="width: 230px;margin-left:260px">
+         @* <button class="btn btn-outline-success" type="submit">Search</button> *@
+                    </form> 
+                    }
+    </div>
+}
+
  
 
 
