@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Implementacija.Models
 {
@@ -8,6 +9,9 @@ namespace Implementacija.Models
         [Key]
         public int Id { get; set; }
         public string Naziv { get; set; }
+        [ForeignKey("Korisnik")]
+        public int KorisnikId { get; set; }
+        public Korisnik korisnik { get; set; }  
         public Kolekcija() { }
 
     }

@@ -17,5 +17,8 @@ namespace Implementacija.Models
         public string poster_path { get; set; }
         public string release_date { get; set; }
         public string title { get; set; }
+        public int runtime { get; set; }
+        public double vote_average { get; set; }
+        public List<Zanr> genres { get; set; }
     }
 }

@@ -102,6 +102,14 @@ namespace Implementacija.Areas.Identity.Pages.Account
                     };
                     _context.Add(osoba);
                     await _context.SaveChangesAsync();
+                    //kreirati objekat tipa korisnik
+                    var korisnik = new Korisnik
+                    {                       
+                        Vip = 0,
+                        osoba = osoba
+                    };
+                    _context.Add(korisnik);
+                    await _context.SaveChangesAsync();
                 }
                 if (result.Succeeded)
                 {

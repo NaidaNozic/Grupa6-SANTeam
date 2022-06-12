@@ -1,8 +1,9 @@
 ﻿@model IEnumerable<Implementacija.Models.Kolekcija>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "SaveMovieToCollection";
 }
+
 
 @if (User.Identity.IsAuthenticated)
  {
@@ -29,7 +30,6 @@
         float:right;
         width:10%;   
         margin-top:10%;
-        margin-top:-8px;
     }
     .Lista li:hover{
         background-color: rgb(255, 255, 255,0.5);       
@@ -38,12 +38,6 @@
    
 </style>
 
-<div>
-     <a sp-area="" asp-controller="Home" asp-action="Index">
-    <img style="height:6em" src="https://i.ibb.co/n0bPk5B/logo-movie-removebg-preview.png" /><br />
-    </a>
-</div>
-
 <div class="User">
     <center>
         <img style="height:5em" src="https://i.ibb.co/NyzBBdb/icons8-user-64.png" /><br />
@@ -51,25 +45,22 @@
         <p style="color:white;margin-left:10px;font-size:25px;margin-top:10px">Your Collections</p>
     </center>
 </div>
-<div class="Create">
-    <img style="height:5em" src="https://i.ibb.co/R3PTx6b/icons8-add-new-64.png" />
-    <a asp-controller="Kolekcija" asp-action="Create" style="font-size:25px;margin-left:5px;color:white">Create</a>
-</div>
-
 <div class="Lista">
-
+    <div>
 @foreach (var item in Model) {
         <ul>
             <li style="font-size:30px">
                 @Html.DisplayFor(modelItem => item.Naziv)
-                <a asp-action="Edit" asp-route-id="@item.Id"
-                style="float:right;margin-right:5px;color:rgb(222, 222 222);font-size:20px">Edit</a>   
-                <p style="float:right;margin-right:10px;font-size:20px"> | </p>
-                <a asp-action="Delete" asp-route-id="@item.Id" 
-                style="float:right;margin-right:12px;color:rgb(143, 0, 0);font-size:20px">Delete</a>
+                <a href="/saveMovie/@ViewBag.filmId/@item.Id"
+                style="float:right;margin-right:5px;color:yellow;font-size:20px">Save
+                </a>
             </li>
         </ul>
 }
 </div>
+</div>
+
+
+
 
 }

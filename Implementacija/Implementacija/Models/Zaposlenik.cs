@@ -5,9 +5,10 @@ namespace Implementacija.Models
 {
     public class Zaposlenik
     {
-
-        [ForeignKey("Osoba")]
+        [Key]
         public int Id { get; set; }
+        [ForeignKey("Osoba")]
+        public int osobaId { get; set; }
         public Osoba osoba { get; set; }
         public Zaposlenik() { }
     }

@@ -233,7 +233,7 @@ namespace Implementacija.Controllers
                     string apiResponse = await response.Content.ReadAsStringAsync();
 
                     ViewBag.ThisMovie = JsonConvert.DeserializeObject(apiResponse);
-                    ViewBag.id = movieId;
+                    ViewBag.Id = movieId;
                     ViewBag.title = ViewBag.ThisMovie.title;
                     ViewBag.overview = ViewBag.ThisMovie.overview;
                     ViewBag.runtimeHour = ViewBag.ThisMovie.runtime / 60;
