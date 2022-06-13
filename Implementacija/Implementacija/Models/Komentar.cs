@@ -9,6 +9,7 @@ namespace Implementacija.Models
         public int Id { set; get; } 
         public string Tekst { set; get; }   
         public string Autor { set; get; }
+        public int tmbd_id { set; get; }
         public Komentar() { }
 
     }
