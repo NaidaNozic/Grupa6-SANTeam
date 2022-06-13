@@ -7,16 +7,19 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Implementacija.Data;
 using Implementacija.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Implementacija.Controllers
 {
     public class KomentarController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public KomentarController(ApplicationDbContext context)
+        public KomentarController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager = userManager;
         }
 
         // GET: Komentar
@@ -24,6 +27,7 @@ namespace Implementacija.Controllers
         {
             return View(await _context.Komentar.ToListAsync());
         }
+
 
         // GET: Komentar/Details/5
         public async Task<IActionResult> Details(int? id)

@@ -12,6 +12,7 @@ using System.Net.Http.Json;
 using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Identity;
 
 namespace Implementacija.Controllers
 {
@@ -20,11 +21,14 @@ namespace Implementacija.Controllers
     {
         private readonly IConfiguration _config;
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private static int idMovie;
 
-        public FilmController(ApplicationDbContext context, IConfiguration config)
+        public FilmController(ApplicationDbContext context, IConfiguration config, UserManager<ApplicationUser> userManager)
         {
             _context = context;
             _config = config;
+            _userManager = userManager;
         }
         //GET filmove kolekcije
         [HttpGet("/filmovi/{collectionId}")]
@@ -235,6 +239,21 @@ namespace Implementacija.Controllers
             }
             return View("SearchResult", movieList.results);
         }
+        [HttpPost]
+        public async Task<IActionResult> CreateComment(string tekst)
+        {
+            Komentar komentar = new Komentar();
+            komentar.Tekst = tekst;
+            komentar.tmbd_id = idMovie;
+            komentar.Autor = _userManager.GetUserAsync(User).Result?.KorisnickoIme;
+            if (ModelState.IsValid)
+            {
+                _context.Add(komentar);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("DetailPage", "Film", new { movieId = idMovie});
+            }
+            return View(await _context.Komentar.ToListAsync());
+        }
 
         [HttpGet("/movie/{movieId}")]
         public async Task<IActionResult> DetailPage(int movieId)
@@ -246,6 +265,8 @@ namespace Implementacija.Controllers
                 using (var response = await httpClient.GetAsync($"https://api.themoviedb.org/3/movie/{movieId}?api_key={movieApiKey}&language=en-US"))
                 {
                     string apiResponse = await response.Content.ReadAsStringAsync();
+
+                    idMovie = movieId;
 
                     ViewBag.ThisMovie = JsonConvert.DeserializeObject(apiResponse);
                     ViewBag.Id = movieId;
@@ -284,8 +305,10 @@ namespace Implementacija.Controllers
 
             }
         }
-
-            return View();
+            //return comments from that specific movie
+            List<Komentar> komentari = _context.Komentar.ToList().FindAll(k => k.tmbd_id== movieId);
+            //return View(await _context.Komentar.ToListAsync());
+            return View(komentari);
         }
 
     }

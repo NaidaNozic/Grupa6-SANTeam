@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@model IEnumerable<Implementacija.Models.Komentar>
+<!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -39,7 +41,8 @@
     </style>
 @* @model IEnumerable<Result> *@
 
-<body>
+
+    <div style="height:800px">
     <div class="wrapper container-fluid">
         @* filter toggle *@
         <div class="main"> 
@@ -119,27 +122,49 @@
         <div class="col-10">
         <div class="comment-box ml-2">
         <h4>Leave a comment</h4>
-        <div class="comment-area"> <textarea class="form-control" placeholder="what is your view?" rows="4"></textarea> </div>
+        <div class="comment-area"> 
+            <!--Unos teksta komentara-->
+                        @using (Html.BeginForm("CreateComment", "Film", FormMethod.Post))
+                        {
+                         <input type="text" name="tekst"/>
+                         <input type="submit" value="Submit"/>
+                        }
+        <!--    <textarea class="form-control" placeholder="what is your view?" rows="4"></textarea> </div>-->
         <div class="comment-btns mt-2">
         <div class="row">
         <div class="col-6">
         <div class="pull-left" > <button class="btn btn-danger btn-sm">Cancel</button> </div>
         </div>
         <div class="col-6">
-        <div class="pull-right"> <button class="btn btn-danger send btn-sm" style="margin-left:200px">Send <i class="fa fa-long-arrow-right ml-1"></i></button> </div>
+        <div class="pull-right"> 
         </div>
         </div>
         </div>
         </div>
         </div>
         </div>
-
-
-
-
 
     </div>
-
-</body>
-
+    </div>
+</div>
 </html>
+
+<div style="margin-top:40px;width:100%" class="CommentSection">
+    @foreach (var item in Model)
+   {
+       <!--Comment-->
+     <div style="width:100%;height:fit-content;margin-bottom:20px" class="card">
+
+         <div style="width:fit-content">
+         <img style="height:2em;width:2em;margin-left:25px;margin:top:30px" src="~/lib/images/user.png"/>
+         </div>
+         <div style="height:fit-content;width:fit-content;margin-top:5px;margin-left:5px;float:left">@item.Autor</div>
+         <div style="width:80%;margin-left:100px;height:fit-content">@item.Tekst</div>
+     </div>   
+   }
+</div>
+
+
+
+
+
