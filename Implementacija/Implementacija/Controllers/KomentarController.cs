@@ -28,6 +28,11 @@ namespace Implementacija.Controllers
             return View(await _context.Komentar.ToListAsync());
         }
 
+        public async Task<IActionResult> OverviewOfComments()
+        {
+            return View("OverviewOfComments", await _context.Komentar.ToListAsync());
+        }
+
 
         // GET: Komentar/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -146,7 +151,7 @@ namespace Implementacija.Controllers
             var komentar = await _context.Komentar.FindAsync(id);
             _context.Komentar.Remove(komentar);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("OverviewOfComments", "Home");
         }
 
         private bool KomentarExists(int id)

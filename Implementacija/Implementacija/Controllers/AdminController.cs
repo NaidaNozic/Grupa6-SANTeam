@@ -29,6 +29,12 @@ namespace Implementacija.Controllers
             return View("MoviesFromDatabase", await _context.Film.ToListAsync());
         }
 
+        //GET Coments from database
+        public async Task<IActionResult> OverviewOfComments()
+        {
+            return View("OverviewOfComments", await _context.Komentar.ToListAsync());
+        }
+
         // GET: Admin
         public async Task<IActionResult> Index()
         {

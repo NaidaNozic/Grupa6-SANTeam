@@ -1,0 +1,92 @@
+﻿@model IEnumerable<Implementacija.Models.Komentar>
+
+@{
+    ViewData["Title"] = "Index";
+}
+<style>
+    body {
+        color: snow;
+        background-image: url("https://i.ibb.co/dGmJRcn/Pocetna-Stranica.png");
+        height: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-attachment: fixed;
+    }
+
+    .Home-logo {
+        margin-left: 20px;
+        margin-top: 20px;
+        float:left;
+    }
+    .Text{
+        width:67%;
+        height:50%;
+        float:left;
+        margin-top:20%;
+        text-align:center;
+    }
+
+    }
+
+</style>
+
+<div class="Home-logo">
+    <a sp-area="" asp-controller="Admin" asp-action="Index">
+        <img style="height:6em" src="https://i.ibb.co/n0bPk5B/logo-movie-removebg-preview.png" /><br />
+    </a>
+    <div style="height:30px">
+        <a sp-area="" asp-controller="Admin" asp-action="Index">
+            <img style="margin-left: 28px;margin-top:30px;margin-bottom:5px;height:50px" src="https://i.ibb.co/7pZzW4m/icons8-home-50.png" alt="Home page" /><br />
+        </a>
+        <a style="color:white;margin-left:30px;font-size:large"
+           sp-area="" asp-controller="Admin" asp-action="Index">Home page</a>
+    </div><br /><br /><br />
+</div>
+
+<div class="User">
+    <center>
+        <p style="color:white;margin-left:10px;font-size:30px;margin-top:10px;font-weight:bold">Overview of comments</p>
+    </center>
+</div>
+
+<!--Komentari-->
+
+<div style="height:210px"></div>
+<div style="margin-left:170px;height:fit-content" class="SviZahtjevi">
+
+    @foreach (var komentar in Model)
+    {
+
+        <div style="margin-bottom:30px;background-color: rgb(202, 202, 202,0.8);height:320px">
+            <div style="height:1px"></div>
+            <div style="width:fit-content;float:left;margin-left:15px;margin-top:10px;margin-bottom:8px" class="Username">
+                @komentar.Autor
+                <br>
+                <br>
+
+
+            </div>
+            <br>
+            <br>
+            <br>
+
+
+            <p style="color:black;float:left;width:600px;height:30px;margin-top:10px;margin-right:90px;margin-left:10px"
+           class="Tekst">
+                @komentar.Tekst
+                <br>
+            </p>
+
+            <a asp-controller="Film" asp-action="Delete" asp-route-id="@komentar.Id">
+                <div style="margin-top:130px;float:right;margin-right:40px;margin-bottom:30px" class="garbage">
+                    <a asp-controller="Komentar" asp-action="Delete" asp-route-id="@komentar.Id"
+                   style="color:red;font-size:20px;margin-right:5px">Delete</a>
+                    <img style="height:3em;float:right" src="~/lib/images/garbage-dark.png">
+                </div>
+            </a>
+        </div>
+
+
+
+    }
