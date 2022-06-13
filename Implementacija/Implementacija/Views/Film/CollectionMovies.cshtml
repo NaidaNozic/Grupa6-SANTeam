@@ -61,7 +61,8 @@
                 {
 
                     <div class="col-sm-6 col-md-3">
-                        <div class="card">                    
+                        <div class="card"> 
+                            <a href="/movie/@r.tmbd_id">
                                     @if(@r.Slika == null)
                                     {
                                         <img src="https://image.tmdb.org/t/p/w500/zYPsleQJo1n1rBPlecJBRb3iwSO.jpg" class="card-img-top" alt="@r.Naziv">
@@ -69,7 +70,8 @@
                                     else
                                     {
                                     <img src="https://image.tmdb.org/t/p/w500/@r.Slika" class="card-img-top" alt="@r.Naziv">
-                                    }                       
+                                    }   
+                                    </a>
                             
                             <div class="cardBody card-body">
                                 <div style="display:flex;justify-content:space-between">
