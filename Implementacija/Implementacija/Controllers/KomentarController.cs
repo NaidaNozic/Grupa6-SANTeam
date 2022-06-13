@@ -151,7 +151,7 @@ namespace Implementacija.Controllers
             var komentar = await _context.Komentar.FindAsync(id);
             _context.Komentar.Remove(komentar);
             await _context.SaveChangesAsync();
-            return RedirectToAction("OverviewOfComments", "Home");
+            return RedirectToAction("OverviewOfComments", "Admin");
         }
 
         private bool KomentarExists(int id)
