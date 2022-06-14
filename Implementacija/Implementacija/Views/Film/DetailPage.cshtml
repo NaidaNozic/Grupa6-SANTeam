@@ -41,6 +41,11 @@
     .red-color {
         color: red;
     }
+    
+    h8 {
+        color: black;
+    }
+   
  
     
 
@@ -55,25 +60,7 @@
             <div class="poster">
                
                 <img alt="" src="https://image.tmdb.org/t/p/w500/@ViewBag.poster_path" style="height:30em" >
-                 <dd>
-                    @if (User.Identity.IsAuthenticated)
-                    {
-
-                        using (Html.BeginForm("SetRating", "Film", FormMethod.Post))
-                        {
-                            for (int i = 1; i <= 5; i++)
-                            {
-                                <input type="radio" id="Rank" name="Rank" value="@i" /> @i
-                            }
-                            <input type="submit" value="Submit" style=" background-color:red; color:white; border-radius:10px; margin-left:5px;" />
-
-                        }
-                    }
-               </dd>
-              
-               
-               
-             
+                
             </div>
 
         </div>
@@ -114,7 +101,24 @@
                     </a>
                 </div>
             </div>
+
             <div style="margin-top:80px">
+      
+                 <dd>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+
+                        using (Html.BeginForm("SetRating", "Film", FormMethod.Post))
+                        {
+                            for (int i = 1; i <= 5; i++)
+                            {
+                                <input type="radio" id="Rank" name="Rank" value="@i" /> @i
+                            }
+                            <input type="submit" value="Submit" style=" background-color:red; color:white; border-radius:10px; margin-left:5px;" />
+
+                        }
+                    }
+               </dd>
                 <h4>Overview</h4>
                 <p>@ViewBag.overview</p>
             </div>
@@ -195,29 +199,30 @@
                         <div class="comment-area">
                             <p>@item.Tekst</p>
 
-                 <div class="comment-btns mt-2">
-        <div class="row">
-        <div class="col-6">
-        <div class="pull-right"> 
+                            <div class="comment-btns mt-2">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="pull-right">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <a href="@Url.Action("Odgovori", "Komentar", new {commentId=@item.Id})">
+                            <div style="float:right"> <button class="btn btn-danger btn-sm">Reply</button> </div>
+                        </a>
+                    }
+                </div>
+            </div>
         </div>
-        </div>
-        </div>
-        </div>
-        </div>
-        </div>
-            @if (User.Identity.IsAuthenticated){
-        <a href="@Url.Action("Odgovori", "Komentar", new {commentId=@item.Id, originalAuthor=@item.Autor})">
-        <div style="float:right"> <button class="btn btn-danger btn-sm">Reply</button> </div>
-           </a>
-            }
-    </div>
-    </div>
-</div>
-        
-        
-         
-     
-   }
+
+
+
+
+    }
 </div>
 
 
