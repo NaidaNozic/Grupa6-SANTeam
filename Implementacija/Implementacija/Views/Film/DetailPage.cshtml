@@ -201,7 +201,8 @@
 </div>
 
 <dd>
-    @{
+    @if (User.Identity.IsAuthenticated){ 
+  
         using (Html.BeginForm("SetRating","Film",FormMethod.Post))
         {
             for(int i = 1; i<=5 ; i++)
@@ -211,7 +212,6 @@
             <input type="submit" value="Submit"/>
             
         }
-
     }
 </dd>
 
