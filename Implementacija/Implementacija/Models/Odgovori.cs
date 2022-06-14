@@ -7,13 +7,9 @@ namespace Implementacija.Models
     {
         [Key]
         public int Id { get; set; } 
-        [ForeignKey("Film")]
-        public int FilmId { get; set; } 
-        public Film Film { get; set; }  
-        [ForeignKey("Komentar")]
-
         public int KomentarId { get; set; } 
-        public Komentar Komentar { get; set; }
+        public string Autor { get; set; }
+        public string Tekst { get; set; }
         public Odgovori() { }
     }
 }

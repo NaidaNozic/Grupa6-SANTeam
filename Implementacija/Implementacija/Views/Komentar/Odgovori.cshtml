@@ -1,0 +1,50 @@
+﻿@model IEnumerable<Implementacija.Models.Odgovori>
+
+    <style>
+        body {
+        color: snow;
+        background-image: url("https://i.ibb.co/dGmJRcn/Pocetna-Stranica.png");
+        height: 50%;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    </style>
+
+    <!--Comment box-->
+
+    <center><div style="width:35%" class="card">
+            <div class="row">
+                <div class="col-2"> <img src="~/lib/images/user-comment.png" width="70" class="rounded-circle mt-2"> </div>
+                <div class="col-10">
+                    <div class="comment-box ml-2">
+                        <h4>Leave a comment</h4>
+                        <div class="comment-area"> 
+
+                            <!--Unos teksta komentara-->
+                            @using (Html.BeginForm("CreateComment", "Film", FormMethod.Post))
+                            {
+                                <input type="text" name="tekst"/>
+                                <input type="submit" value="Submit"/>
+                            }
+
+                            <div class="comment-btns mt-2">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="pull-left" > <button class="btn btn-danger btn-sm">Cancel</button> </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <div class="pull-right"> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div></center>
+
+    <!--All the reply's-->
+    

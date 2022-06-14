@@ -51,6 +51,11 @@ namespace Implementacija.Controllers
 
             return View(komentar);
         }
+        //GET Odgovore
+        public async Task<IActionResult> Odgovori(int commentId)
+        {
+            return View(await _context.Odgovori.ToListAsync());
+        }
 
         // GET: Komentar/Create
         public IActionResult Create()
