@@ -18,13 +18,13 @@
                 <div class="col-2"> <img src="~/lib/images/user-comment.png" width="70" class="rounded-circle mt-2"> </div>
                 <div class="col-10">
                     <div class="comment-box ml-2">
-                        <h4>Leave a comment</h4>
+                        <h4 style="margin-left:30%">Leave a comment</h4>
                         <div class="comment-area"> 
 
                             <!--Unos teksta komentara-->
-                            @using (Html.BeginForm("CreateComment", "Film", FormMethod.Post))
+                            @using (Html.BeginForm("CreateReply", "Komentar", FormMethod.Post))
                             {
-                                <input type="text" name="tekst"/>
+                                <input type="text" name="Tekst"/>
                                 <input type="submit" value="Submit"/>
                             }
 
@@ -47,4 +47,36 @@
         </div></center>
 
     <!--All the reply's-->
-    
+    <div style="width:100%" class="CommentSection">
+    <br />
+    <center><h2>Reply's</h2></center>
+    @foreach (var item in Model)
+   {
+        <div id="example" style="width:67%;margin-bottom:10px;margin-left:200px;" class="card bg-light text-dark">
+         <div class="row">
+        <div class="col-2"><img src="~/lib/images/user-comment.png" width="55" class="rounded-circle mt-2" style="margin-bottom:5px;"> </div>
+          <div class="col-10">
+        <div class="comment-box ml-2">
+            <b><h20>@item.Autor <i style="font-size:15px"></i> </h20></b>
+             <div class="comment-area"> 
+                 <p>@item.Tekst</p>
+
+                 <div class="comment-btns mt-2">
+        <div class="row">
+        <div class="col-6">
+        <div class="pull-right"> 
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+        </div>
+    </div>
+    </div>
+</div>
+        
+        
+         
+     
+   }
+</div>

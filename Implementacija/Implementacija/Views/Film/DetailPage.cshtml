@@ -160,7 +160,10 @@
 <!--Comment section-->
 <div style="width:100%" class="CommentSection">
     <br />
-    <h4>Comments</h4>
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <h4>Comments</h4>
+    }
     @foreach (var item in Model)
    {
         <div id="example" style="width:67%;margin-bottom:10px;margin-left:367px;" class="card bg-light text-dark">
@@ -182,9 +185,11 @@
         </div>
         </div>
         </div>
+            @if (User.Identity.IsAuthenticated){
         <a href="@Url.Action("Odgovori", "Komentar", new {commentId=@item.Id})">
         <div style="float:right"> <button class="btn btn-danger btn-sm">Reply</button> </div>
            </a>
+            }
     </div>
     </div>
 </div>

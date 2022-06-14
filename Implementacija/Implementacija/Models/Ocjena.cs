@@ -7,6 +7,8 @@ namespace Implementacija.Models
         [Key]
         public int Id { get; set; } 
         public int OcjenaKorisnika { get; set; }
+        public string userId { get; set; }
+        public int movieId { get; set; }
         public Ocjena() { }
     }
 }

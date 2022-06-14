@@ -7,35 +7,26 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Implementacija.Data;
 using Implementacija.Models;
-using Microsoft.AspNetCore.Identity;
 
 namespace Implementacija.Controllers
 {
-    public class KomentarController : Controller
+    public class OdgovoriController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private static int _commentId;
 
-        public KomentarController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
+        public OdgovoriController(ApplicationDbContext context)
         {
             _context = context;
-            _userManager = userManager;
         }
 
-        // GET: Komentar
+        // GET: Odgovori
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Komentar.ToListAsync());
+            return View(await _context.Odgovori.ToListAsync());
         }
+    
 
-        public async Task<IActionResult> OverviewOfComments()
-        {
-            return View("OverviewOfComments", await _context.Komentar.ToListAsync());
-        }
-
-
-        // GET: Komentar/Details/5
+        // GET: Odgovori/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -43,61 +34,39 @@ namespace Implementacija.Controllers
                 return NotFound();
             }
 
-            var komentar = await _context.Komentar
+            var odgovori = await _context.Odgovori
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (komentar == null)
+            if (odgovori == null)
             {
                 return NotFound();
             }
 
-            return View(komentar);
-        }
-        //GET Odgovore
-        public IActionResult Odgovori(int commentId)
-        {
-            _commentId = commentId;
-            var prevousReply = _context.Odgovori.ToList().FindAll(o => o.KomentarId == commentId);
-            return View(prevousReply);
-        }
-        [HttpPost]
-        public async Task<IActionResult> CreateReply(string Tekst)
-        {
-            Odgovori odgovor = new Odgovori();
-            odgovor.KomentarId = _commentId;
-            odgovor.Autor = _userManager.GetUserAsync(User).Result?.KorisnickoIme;
-            odgovor.Tekst = Tekst;
-            if (ModelState.IsValid)
-            {
-                _context.Add(odgovor);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("Odgovori", "Komentar" ,new {commentId = _commentId });
-            }
-            return View(await _context.Odgovori.ToListAsync());
+            return View(odgovori);
         }
 
-        // GET: Komentar/Create
+        // GET: Odgovori/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Komentar/Create
+        // POST: Odgovori/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Tekst,Autor")] Komentar komentar)
+        public async Task<IActionResult> Create([Bind("Id,KomentarId,Autor,Tekst")] Odgovori odgovori)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(komentar);
+                _context.Add(odgovori);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(komentar);
+            return View(odgovori);
         }
 
-        // GET: Komentar/Edit/5
+        // GET: Odgovori/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -105,22 +74,22 @@ namespace Implementacija.Controllers
                 return NotFound();
             }
 
-            var komentar = await _context.Komentar.FindAsync(id);
-            if (komentar == null)
+            var odgovori = await _context.Odgovori.FindAsync(id);
+            if (odgovori == null)
             {
                 return NotFound();
             }
-            return View(komentar);
+            return View(odgovori);
         }
 
-        // POST: Komentar/Edit/5
+        // POST: Odgovori/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Tekst,Autor")] Komentar komentar)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,KomentarId,Autor,Tekst")] Odgovori odgovori)
         {
-            if (id != komentar.Id)
+            if (id != odgovori.Id)
             {
                 return NotFound();
             }
@@ -129,12 +98,12 @@ namespace Implementacija.Controllers
             {
                 try
                 {
-                    _context.Update(komentar);
+                    _context.Update(odgovori);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!KomentarExists(komentar.Id))
+                    if (!OdgovoriExists(odgovori.Id))
                     {
                         return NotFound();
                     }
@@ -145,10 +114,10 @@ namespace Implementacija.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(komentar);
+            return View(odgovori);
         }
 
-        // GET: Komentar/Delete/5
+        // GET: Odgovori/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -156,30 +125,30 @@ namespace Implementacija.Controllers
                 return NotFound();
             }
 
-            var komentar = await _context.Komentar
+            var odgovori = await _context.Odgovori
                 .FirstOrDefaultAsync(m => m.Id == id);
-            if (komentar == null)
+            if (odgovori == null)
             {
                 return NotFound();
             }
 
-            return View(komentar);
+            return View(odgovori);
         }
 
-        // POST: Komentar/Delete/5
+        // POST: Odgovori/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var komentar = await _context.Komentar.FindAsync(id);
-            _context.Komentar.Remove(komentar);
+            var odgovori = await _context.Odgovori.FindAsync(id);
+            _context.Odgovori.Remove(odgovori);
             await _context.SaveChangesAsync();
-            return RedirectToAction("OverviewOfComments", "Admin");
+            return RedirectToAction(nameof(Index));
         }
 
-        private bool KomentarExists(int id)
+        private bool OdgovoriExists(int id)
         {
-            return _context.Komentar.Any(e => e.Id == id);
+            return _context.Odgovori.Any(e => e.Id == id);
         }
     }
 }
