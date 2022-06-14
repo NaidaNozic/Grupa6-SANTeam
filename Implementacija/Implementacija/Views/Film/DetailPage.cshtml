@@ -200,6 +200,20 @@
    }
 </div>
 
+<dd>
+    @{
+        using (Html.BeginForm("SetRating","Film",FormMethod.Post))
+        {
+            for(int i = 1; i<=5 ; i++)
+            {
+                <input type="radio" id="Rank" name="Rank" value="@i" /> @i
+            }
+            <input type="submit" value="Submit"/>
+            
+        }
+
+    }
+</dd>
 
 
 

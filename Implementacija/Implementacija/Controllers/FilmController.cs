@@ -310,6 +310,18 @@ namespace Implementacija.Controllers
             //return View(await _context.Komentar.ToListAsync());
             return View(komentari);
         }
+        public ActionResult SetRating(int movieId, int rank)
+        {
+            Ocjena ocjena = new Ocjena();
+            ocjena.movieId = idMovie;
+            ocjena.OcjenaKorisnika = rank;
+            ocjena.userId = _userManager.GetUserId(HttpContext.User);
+
+            _context.Ocjena.Add(ocjena);
+            _context.SaveChanges();
+            return RedirectToAction("DetailPage", "Film", new { movieId = idMovie });
+
+        }
 
     }
 }
