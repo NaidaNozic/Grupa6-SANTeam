@@ -236,7 +236,7 @@ namespace Implementacija.Controllers
             };
             if (ModelState.IsValid)
             {
-                if(_context.FilmVeza.ToList().Find(v => v.FilmId==movieId)==null)
+                if(_context.FilmVeza.ToList().Find(v => v.FilmId==movieId && v.KolekcijaId==collectionId)==null)
                 _context.Add(filmVeza);
                 await _context.SaveChangesAsync();
             }
