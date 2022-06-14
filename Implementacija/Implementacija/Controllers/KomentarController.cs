@@ -190,6 +190,13 @@ namespace Implementacija.Controllers
         {
             var komentar = await _context.Komentar.FindAsync(id);
             _context.Komentar.Remove(komentar);
+            //obrisati sve odgovore od tog komentara
+            var odgovori =  _context.Odgovori.ToList().FindAll(o => o.KomentarId==komentar.Id);
+            foreach(var o in odgovori)
+            {
+                var odg = await _context.Odgovori.FindAsync(o.Id);
+                _context.Odgovori.Remove(odg);
+            }
             await _context.SaveChangesAsync();
             return RedirectToAction("OverviewOfComments", "Admin");
         }
