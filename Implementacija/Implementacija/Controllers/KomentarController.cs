@@ -16,6 +16,7 @@ namespace Implementacija.Controllers
         private readonly ApplicationDbContext _context;
         private readonly UserManager<ApplicationUser> _userManager;
         private static int _commentId;
+        private static string _userWhoIsGettingAReply;
 
         public KomentarController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
@@ -53,9 +54,10 @@ namespace Implementacija.Controllers
             return View(komentar);
         }
         //GET Odgovore
-        public IActionResult Odgovori(int commentId)
+        public IActionResult Odgovori(int commentId,string originalAuthor)
         {
             _commentId = commentId;
+            _userWhoIsGettingAReply = originalAuthor;
             var prevousReply = _context.Odgovori.ToList().FindAll(o => o.KomentarId == commentId);
             return View(prevousReply);
         }
@@ -69,6 +71,21 @@ namespace Implementacija.Controllers
             if (ModelState.IsValid)
             {
                 _context.Add(odgovor);
+                await _context.SaveChangesAsync();
+                //moram poslati obavijest originalnom korisniku da je dobio reply
+                var osoba1 = _context.Osoba.ToList().Find(o => o.KorisnickoIme == _context.Osoba.ToList().Find(q => q.KorisnickoIme==_userWhoIsGettingAReply).KorisnickoIme);
+                var korisnik1=_context.Korisnik.ToList().Find(k => k.osobaId==osoba1.Id);
+                Obavijest obavijest = new Obavijest
+                {
+                    Tekst = "You have a reply from " + odgovor.Autor + " : " + odgovor.Tekst,
+                    Vrsta = VrstaObavijesti.KomentarObavijest
+                };
+                ObavijestVeza obavijestVeza = new ObavijestVeza
+                {
+                    Korisnik=korisnik1,
+                    Obavijest=obavijest
+                };
+                _context.Add(obavijestVeza);
                 await _context.SaveChangesAsync();
                 return RedirectToAction("Odgovori", "Komentar" ,new {commentId = _commentId });
             }

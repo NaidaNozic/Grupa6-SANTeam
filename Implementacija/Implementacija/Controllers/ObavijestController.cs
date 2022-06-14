@@ -7,22 +7,38 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Implementacija.Data;
 using Implementacija.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace Implementacija.Controllers
 {
     public class ObavijestController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public ObavijestController(ApplicationDbContext context)
+        public ObavijestController(ApplicationDbContext context, UserManager<ApplicationUser> userManager)
         {
             _context = context;
+            _userManager= userManager;
         }
 
         // GET: Obavijest
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            return View(await _context.Obavijest.ToListAsync());
+            var osoba = _context.Osoba.ToList().Find(o => o.UserId == _userManager.GetUserAsync(User).Result?.Id);
+            var korisnik = _context.Korisnik.ToList().Find(k => k.osobaId == osoba.Id);
+
+            var obavijestiVeza = _context.ObavijestVeza.ToList().FindAll(o => o.KorisnikId == korisnik.Id);
+            List<Obavijest> obavijesti = new List<Obavijest>();
+            foreach (var l in obavijestiVeza)
+            {
+                var oo = _context.Obavijest.ToList().FindAll(k => k.Id == l.ObavijestId);
+                foreach (var o1 in oo)
+                {
+                    obavijesti.Add(o1);
+                }
+            }
+            return View(obavijesti);
         }
 
         // GET: Obavijest/Details/5

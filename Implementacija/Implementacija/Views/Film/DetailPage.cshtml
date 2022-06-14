@@ -186,7 +186,7 @@
         </div>
         </div>
             @if (User.Identity.IsAuthenticated){
-        <a href="@Url.Action("Odgovori", "Komentar", new {commentId=@item.Id})">
+        <a href="@Url.Action("Odgovori", "Komentar", new {commentId=@item.Id, originalAuthor=@item.Autor})">
         <div style="float:right"> <button class="btn btn-danger btn-sm">Reply</button> </div>
            </a>
             }

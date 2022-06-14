@@ -48,8 +48,22 @@
                 </label>
             <p class="lead font-weight-light">Let me know if anyone responds to the comment</p>
             <br />
-
-
+            <!--This is the list of comment Notifications-->
+                @foreach (var item in Model)
+                {
+                    
+                
+             <div style="margin-bottom:5px" class="card">
+            <div class="row">
+                <div class="col-10">
+                        <div class="comment-area"> 
+                            <p style="font-weight:bold">@item.Tekst</p>
+                        </div>
+                </div>
+            </div>
+        </div>
+                }
+            <!---->
             <p class="lead font-weight-bold">Update app <label class="switch">
                     <input type="checkbox">
                     <span class="slider round"></span>
