@@ -40,6 +40,9 @@
             
 
         }
+        .red-color {
+        color:red;
+    }
        
        
        
@@ -69,28 +72,20 @@
         
                 @* @ViewBag.genre  *@
                 @ViewBag.runtimeHour h @ViewBag.runtimeMinute m</h5>
-                <div style="float:left;height:fit-content" class="iconGroup">
-                    @* <h4 class="rating">@ViewBag.vote_average</h4> *@
-                    @if(@ViewBag.vote_average > 7)
-                    {
-                    <span class="rating card-text" style="border:3px double forestGreen;">@ViewBag.vote_average </span>
-                    }
-                    else if(@ViewBag.vote_average > 5)
-                    {
-                    <span class="rating card-text" style="border:3px double rgb(216, 203, 54);">@ViewBag.vote_average </span>
-                    }
-                    else
-                    {
-                    <span class="rating card-text" style="border:3px double darkOrange;">@ViewBag.vote_average </span>
-                    }
-                
-            </div>
-            </br>
+               
+          
              <div style="width:50%;float:left;margin-top:15px">
                   <div style="width:fit-content;height:fit-content;float:left;margin-right:20px">
-                    <a href="/like/@ViewBag.id/@ViewBag.title" style="text-decoration:none;float:left">                     
-                        <i class="icon fa fa-heart"></i>
-                        <div class="hide">Like</div>
+                    <a style="text-decoration:none;float:left">  
+                         <div style="float:left;height:fit-content" class="iconGroup">
+                    @* <h4 class="rating">@ViewBag.vote_average</h4> *@
+                   
+                    <b><span class="rating card-text" style="margin-right:10px;">@ViewBag.vote_average </span></b>
+                   
+                
+                    </div>
+                        <i class="icon fa fa-heart red-color"></i>
+                        <div class="hide">Rating</div>
                     </a>
                     </div>
                     <div>
@@ -164,8 +159,7 @@
     <h4>Comments</h4>
     @foreach (var item in Model)
    {
-       <!--Comment-->
-     <div id="example" style="width:67%;margin-bottom:10px;margin-left:367px;" class="card bg-light text-dark">
+        <div id="example" style="width:67%;margin-bottom:10px;margin-left:367px;" class="card bg-light text-dark">
          <div class="row">
         <div class="col-2"><img src="~/lib/images/user-comment.png" width="55" class="rounded-circle mt-2" style="margin-bottom:5px;"> </div>
           <div class="col-10">
