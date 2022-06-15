@@ -15,11 +15,14 @@
             </a>
         </li>
         <li class="nav-item">
-            <a class="nav-link text-dark" asp-action="Index" asp-controller="Obavijest" title="Manage">
-                Notifications
+            @if (!User.IsInRole("Admin"))
+            {
+                <a class="nav-link text-dark" asp-action="Index" asp-controller="Obavijest" title="Manage">
+                    Notifications
                 <img style="max-width:40px; height:20px; margin-top: -7px;"
                  src="~/lib/images/notifications.png">
             </a>
+            }
         </li>
         <li class="nav-item">
             <form class="form-inline" asp-area="Identity" asp-page="/Account/Logout" asp-route-returnUrl="@Url.Action("Index", "Home", new { area = "" })">

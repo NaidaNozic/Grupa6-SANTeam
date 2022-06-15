@@ -128,6 +128,9 @@ namespace Implementacija.Controllers
             {
                 try
                 {
+                    var osoba = _context.Osoba.ToList().Find(o => o.UserId == _userManager.GetUserAsync(User).Result?.Id);
+                    var korisnik = _context.Korisnik.ToList().Find(k => k.osobaId == osoba.Id);
+                    kolekcija.KorisnikId = korisnik.Id;
                     _context.Update(kolekcija);
                     await _context.SaveChangesAsync();
                 }
