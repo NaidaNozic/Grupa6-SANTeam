@@ -46,11 +46,14 @@
     </a>
         <a style="color:dimgray;margin-left:30px;margin-top:10px;font-size:large;"
         sp-area="" asp-controller="Film" asp-action="Recommended">Recommended page</a><br /><br />
+          @if (User.Identity.IsAuthenticated){
     <a sp-area="" asp-controller="Kolekcija" asp-action="Index">
         <img style="margin-left: 28px" src="https://i.ibb.co/1TmfXXY/icons8-video-playlist-50.png" /><br />
     </a>
+ 
         <a style="color:dimgray;margin-left:30px;margin-top:10px;font-size:large" 
         sp-area="" asp-controller="Kolekcija" asp-action="Index">Collections</a>
+        }
 </div>
    
   <div style="height:50px">
