@@ -1,5 +1,5 @@
 # Grupa6-SANTeam
-Application name: MyMovieLibrary </br></br>
+Application name: MyMovieLibrary
 <h4>Team members:</h4>
 Semina Muratović </br>
 Adna Ćato</br>
