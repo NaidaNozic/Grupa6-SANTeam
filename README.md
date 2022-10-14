@@ -23,6 +23,25 @@ Users have a wide range of movies at their disposal with all the main informatio
 <li>Rating movies</li>
 </ul>
 
+<h3>Registration</h3>
+<img src="Videos/Registration.gif">
+
+<br>
+<h3>Movie search & Recommendation page</h3>
+<img src="Videos/Guest-Functionality.gif">
+
+<br>
+<h3>Creating and adding movies to collections</h3>
+<img src="Videos/Collections-Functionality.gif">
+
+<br>
+<h3>Commenting</h3>
+<img src="Videos/Comment-Functionality.gif">
+
+<br>
+<h3>Administrator</h3>
+<img src="Videos/Admin-Functionality.gif">
+
 <h3>Actors</h3>
 <ul>
 <li>User</li>
